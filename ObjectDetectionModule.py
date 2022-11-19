@@ -7,12 +7,12 @@ thres = 0.45  # Threshold to detect object
 #cap.set(10, 70)
 
 classNames = []
-classFile = 'coco.names'
+classFile = '/home/pi/ObjectDetectionUsingSSDMobinet-/coco.names'
 with open(classFile, 'rt') as f:
     classNames = f.read().rstrip('n').split('n')
 
-configPath = 'ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
-weightsPath = 'frozen_inference_graph.pb'
+configPath = '/home/pi/ObjectDetectionUsingSSDMobinet-/ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt'
+weightsPath = '/home/pi/ObjectDetectionUsingSSDMobinet-/frozen_inference_graph.pb'
 
 net = cv2.dnn_DetectionModel(weightsPath, configPath)
 net.setInputSize(320, 320)
@@ -45,12 +45,12 @@ def getObjects(img, draw=True):
 
 
 if __name__ == "__main__":
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(-1)
     cap.set(3, 640)
     cap.set(4, 480)
     while True:
         success, img = cap.read()
-        result, ObjectInfo = getObjects(img, True)
+        results, ObjectInfo = getObjects(img, True)
         print(ObjectInfo)
         cv2.imshow("Output", img)
         cv2.waitKey(1)
